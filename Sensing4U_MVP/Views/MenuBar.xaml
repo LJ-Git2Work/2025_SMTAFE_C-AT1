@@ -9,7 +9,7 @@
     <Grid>
         <Menu>
             <MenuItem Header="File" FontSize="16" >
-                <MenuItem Header="Open"/>
+                <MenuItem Header="Open" Command="{Binding OpenFileCommand}"/>
                 <MenuItem Header="Save"/>
                 <MenuItem Header="Save As"/>
                 <MenuItem Header="Save All" Command="{Binding SaveAllCommand}"/>

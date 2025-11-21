@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Sensing4U_MVP.Views.ControlPane"
+﻿<UserControl x:Class="Sensing4U_MVP.Views.ControlPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,42 +6,40 @@
              xmlns:local="clr-namespace:Sensing4U_MVP.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" Width="150">
-    
-    <Border BorderBrush="Gray" BorderThickness="1">
-        <Grid Background="LightGray">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
 
-            <!-- Upper and Lower bound -->
-            <Border Grid.Row="0" Background="White"  BorderBrush="Gray" BorderThickness="1" Margin="5,10,5,5">
-                <StackPanel Orientation="Horizontal" Margin="5" Background="White">
-                    <TextBlock Text="Min" FontSize="12" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBox x:Name="LowerBound" MinWidth="35" Margin="0,0,5,0"/>
-                    <TextBlock Text="Max" FontSize="12" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBox x:Name="UpperBound" MinWidth="35" Margin="0,0,5,0"/>
-                </StackPanel>
-            </Border>
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <!-- Search by label -->
-            <Border Grid.Row="1" Background="White" BorderBrush="Gray" BorderThickness="1" Margin="5">
-                <StackPanel Orientation="Vertical" Margin="5">
-                    <TextBlock Text="Search by Label" FontSize="12" Margin="0,0,5,0"/>
-                    <TextBox x:Name="LabelSearch" MinWidth="100" Margin="0,5,0,0"/>
-                </StackPanel>
-            </Border>
+        <!-- Upper and Lower bound -->
+        <Border Grid.Row="0" Background="White"  BorderBrush="Gray" BorderThickness="1" Margin="5,10,5,5">
+            <StackPanel Orientation="Horizontal" Margin="5" Background="White">
+                <TextBlock Text="Min" FontSize="12" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="LowerBound" MinWidth="35" Margin="0,0,5,0"/>
+                <TextBlock Text="Max" FontSize="12" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="UpperBound" MinWidth="35" Margin="0,0,5,0"/>
+            </StackPanel>
+        </Border>
 
-            <!-- Average of dataset -->
-            <Border Grid.Row="2" Background="White" BorderBrush="Gray" BorderThickness="1" Margin="5">
-                <StackPanel Orientation="Vertical" Margin="5">
-                    <TextBlock Text="Calculated Average" FontSize="12" Margin="0,0,5,0"/>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0">
-                        <TextBlock x:Name="DataSetAverage" Margin="0,5,0,0"/>
-                    </Border>
-                </StackPanel>
-            </Border>
-        </Grid>
-    </Border>
+        <!-- Search by label -->
+        <Border Grid.Row="1" Background="White" BorderBrush="Gray" BorderThickness="1" Margin="5">
+            <StackPanel Orientation="Vertical" Margin="5">
+                <TextBlock Text="Search by Label" FontSize="12" Margin="0,0,5,0"/>
+                <TextBox    Text="{Binding FileLabel, UpdateSourceTrigger=PropertyChanged}" x:Name="LabelSearch" MinWidth="100" Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Average of dataset -->
+        <Border Grid.Row="2" Background="White" BorderBrush="Gray" BorderThickness="1" Margin="5">
+            <StackPanel Orientation="Vertical" Margin="5">
+                <TextBlock Text="Calculated Average" FontSize="12" Margin="0,0,5,0"/>
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="0">
+                    <TextBlock x:Name="DataSetAverage" Margin="0,5,0,0"/>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>
