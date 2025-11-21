@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Sensing4U_MVP.ViewModels;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,8 @@ namespace Sensing4U_MVP
         public MainWindow()
         {
             InitializeComponent();
+            var VM = new MainWindowViewModel();
+            DataContext = VM;
         }
     }
 }
