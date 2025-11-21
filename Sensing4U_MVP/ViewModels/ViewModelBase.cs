@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sensing4U_MVP.ViewModels
 {
-    internal class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

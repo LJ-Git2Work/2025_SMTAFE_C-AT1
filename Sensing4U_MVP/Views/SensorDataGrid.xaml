@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Sensing4U_MVP.Views.SensorDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sensing4U_MVP.Views"
+             xmlns:Services="clr-namespace:Sensing4U_MVP.Services"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Services:ValueToColourConverter x:Key="ValueToColourConverter"/>
+    </UserControl.Resources>
+
+    <DataGrid Grid.Column="2"
+              ItemsSource="{Binding SensorDataTable}"
+              AutoGenerateColumns="True"
+              IsReadOnly="True"
+              HeadersVisibility="None"
+              CanUserAddRows="False"
+              CanUserDeleteRows="False"
+              CanUserReorderColumns="False"
+              CanUserResizeColumns="False"
+              CanUserResizeRows="False"
+              CanUserSortColumns="False"
+              SelectionMode="Single"
+              SelectionUnit="Cell" 
+              HorizontalGridLinesBrush="#FF6D6D6D" 
+              VerticalGridLinesBrush="#FF6D6D6D"
+              >
+        <DataGrid.CellStyle>
+            <Style TargetType="DataGridCell">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ValueToColourConverter}">
+                            <Binding RelativeSource="{RelativeSource Self}" Path="Content.Text"/>
+                            <Binding Path="DataContext.LowerBoundValue" RelativeSource="{RelativeSource AncestorType=Window}"/>
+                            <Binding Path="DataContext.UpperBoundValue" RelativeSource="{RelativeSource AncestorType=Window}"/>
+                            <Binding Path="DataContext.SearchFound" RelativeSource="{RelativeSource AncestorType=Window}"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridCell">
+                            <Border Background="{TemplateBinding Background}" Padding="5">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TextBlock.FontWeight" Value="SemiBold"/>
+            </Style>
+        </DataGrid.CellStyle>
+    </DataGrid>
+</UserControl>

@@ -5,9 +5,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Sensing4U_MVP.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" Width="150">
+             d:DesignHeight="450"  d:DesignWidth="200">
 
     <Grid Background="LightBlue">
-        <ListBox x:Name="FilesList"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10">
+            <Button Content="Previous"  Command="{Binding PreviousCommand}" HorizontalAlignment="Left"/>
+            <Button Content="Next File" Command="{Binding NextCommand}" HorizontalAlignment="Right"/>
+        </Grid>
+
+        <ListBox Grid.Row="1"
+                 x:Name="DataFileListBox"
+                 ItemsSource="{Binding ProcessedDataFiles}"
+                 SelectedItem="{Binding SelectedFile}"
+                 SelectedIndex="{Binding SelectedFileIndex, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Label}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Path}" Foreground="Gray"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>
