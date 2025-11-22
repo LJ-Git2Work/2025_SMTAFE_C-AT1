@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sensing4U_MVP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Sensing4U_MVP.Views
         public SensorDataGrid()
         {
             InitializeComponent();
+            var vm = (MainWindowViewModel)this.DataContext;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Sensing4U_MVP.Models
     /// <summary>
     /// Core data model representing a single sensor reading.
     /// </summary>
-    public class SensorData : IComparable<SensorData>
+    public class SensorData
     {
         /// <summary>
         /// Label identifying this sensor reading
@@ -55,14 +55,6 @@ namespace Sensing4U_MVP.Models
         public override string ToString()
         {
             return $"{Value:F3}\n{Label}\n{Timestamp:u}";
-        }
-
-        /// <summary>
-        /// Returns a string representation of this sensor record
-        /// </summary>
-        public int CompareTo(SensorData? other)
-        {
-            throw new NotImplementedException();
         }
     }
 }

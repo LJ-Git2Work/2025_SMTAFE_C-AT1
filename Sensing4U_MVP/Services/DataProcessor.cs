@@ -379,6 +379,7 @@ namespace Sensing4U_MVP.Services
 
             return grid;
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -411,12 +412,9 @@ namespace Sensing4U_MVP.Services
             if (right < 0)
                 return left;
             if (left >= list.Count)
-                return right;
+                return list.Count - 1;
 
-            int diffRight = Math.Abs(cmp(list[right], target));
-            int diffLeft = Math.Abs(cmp(list[left], target));
-
-            return (diffLeft < diffRight) ? left : right;
+            return left;
         }
 
     }

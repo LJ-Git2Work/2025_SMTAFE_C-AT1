@@ -3,6 +3,7 @@ using Sensing4U_MVP.Services;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
+using System.Windows.Media;
 
 
 namespace Sensing4U_MVP.ViewModels
@@ -178,14 +179,14 @@ namespace Sensing4U_MVP.ViewModels
         #region Search Properties 
         // == Search Properties ==
 
-        private string _searchText;
-        public string SearchText
+        private string _searchTextBox;
+        public string SearchTextBox
         {
-            get => _searchText;
+            get => _searchTextBox;
             set
             {
-                _searchText = value;
-                OnPropertyChanged(nameof(SearchText));
+                _searchTextBox = value;
+                OnPropertyChanged(nameof(SearchTextBox));
             }
         }
 
@@ -209,7 +210,26 @@ namespace Sensing4U_MVP.ViewModels
                 OnPropertyChanged(nameof(SearchFound));
             }
         }
-
+        private int _searchedForRowIndex = 1;
+        public int SearchedForRowIndex
+        {
+            get => _searchedForRowIndex;
+            set
+            {
+                _searchedForRowIndex = value;
+                OnPropertyChanged(nameof(SearchedForRowIndex));
+            }
+        }
+        public int _searchedForColumnIndex = -1;
+        public int SearchedForColumnIndex 
+        {
+            get => _searchedForColumnIndex;
+            set
+            {
+                _searchedForColumnIndex = value;
+                OnPropertyChanged(nameof(SearchedForColumnIndex));
+            }
+        }
         #endregion
 
         #region Sort and Search Commands 
@@ -254,7 +274,7 @@ namespace Sensing4U_MVP.ViewModels
 
         public RelayCommand SearchCommand => new RelayCommand(
             execute => ExecuteSearch(),
-            canExecute => IsDataSorted && !string.IsNullOrWhiteSpace(SearchText)
+            canExecute => IsDataSorted && !string.IsNullOrWhiteSpace(SearchTextBox)
         );
 
         private void ExecuteSearch()
@@ -270,18 +290,18 @@ namespace Sensing4U_MVP.ViewModels
                 switch (SelectedSortMode)
                 {
                     case SortMode.Label:
-                        resultIndex = DataProcessor.Instance.BinarySearchNearest(flat, new SensorData { Label = SearchText },
-                            (a, b) => string.Compare(a.Label, b.Label, StringComparison.Ordinal));
+                        resultIndex = DataProcessor.Instance.BinarySearchNearest(flat, new SensorData { Label = SearchTextBox },
+                            (a, b) => string.Compare(a.Label, b.Label, StringComparison.OrdinalIgnoreCase));
                         break;
 
                     case SortMode.Value:
-                        if (!float.TryParse(SearchText, out float f)) { SearchResult = "Invalid numeric value"; return; }
+                        if (!float.TryParse(SearchTextBox, out float f)) { SearchResult = "Invalid numeric value"; return; }
                         resultIndex = DataProcessor.Instance.BinarySearchNearest(flat, new SensorData { Value = f },
                             (a, b) => a.Value.CompareTo(b.Value));
                         break;
 
                     case SortMode.Timestamp:
-                        if (!DateTime.TryParse(SearchText, out DateTime t)) { SearchResult = "Invalid date/time format"; return; }
+                        if (!DateTime.TryParse(SearchTextBox, out DateTime t)) { SearchResult = "Invalid date/time format"; return; }
                         resultIndex = DataProcessor.Instance.BinarySearchNearest(flat, new SensorData { Timestamp = t },
                             (a, b) => a.Timestamp.CompareTo(b.Timestamp));
                         break;
@@ -291,9 +311,13 @@ namespace Sensing4U_MVP.ViewModels
                 {
                     SearchFound = flat[resultIndex].ToString();
                     SearchResult = $"Found at index {resultIndex}";
+                    SearchedForColumnIndex = resultIndex % SelectedFile.Grid.GetLength(1);
+                    SearchedForRowIndex = resultIndex / SelectedFile.Grid.GetLength(1);
                 }
                 else
                 {
+                    SearchedForColumnIndex = -1;
+                    SearchedForRowIndex = -1;
                     SearchResult = "Not found";
                 }
             }
@@ -332,6 +356,10 @@ namespace Sensing4U_MVP.ViewModels
 
             try
             {
+                SearchFound = null;
+                SearchedForColumnIndex = -1;
+                SearchedForRowIndex = -1;
+
                 // Calculate average from records
                 if (SelectedFile.Grid != null && SelectedFile.Grid.Length > 0)
                 {

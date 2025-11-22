@@ -12,8 +12,7 @@
         <Services:ValueToColourConverter x:Key="ValueToColourConverter"/>
     </UserControl.Resources>
 
-    <DataGrid Grid.Column="2"
-              ItemsSource="{Binding SensorDataTable}"
+    <DataGrid ItemsSource="{Binding SensorDataTable}"
               AutoGenerateColumns="True"
               IsReadOnly="True"
               HeadersVisibility="None"
@@ -24,7 +23,7 @@
               CanUserResizeRows="False"
               CanUserSortColumns="False"
               SelectionMode="Single"
-              SelectionUnit="Cell" 
+              SelectionUnit="Cell"
               HorizontalGridLinesBrush="#FF6D6D6D" 
               VerticalGridLinesBrush="#FF6D6D6D"
               >
@@ -36,7 +35,10 @@
                             <Binding RelativeSource="{RelativeSource Self}" Path="Content.Text"/>
                             <Binding Path="DataContext.LowerBoundValue" RelativeSource="{RelativeSource AncestorType=Window}"/>
                             <Binding Path="DataContext.UpperBoundValue" RelativeSource="{RelativeSource AncestorType=Window}"/>
-                            <Binding Path="DataContext.SearchFound" RelativeSource="{RelativeSource AncestorType=Window}"/>
+                            <Binding Path="Item" RelativeSource="{RelativeSource AncestorType=DataGridRow}" />
+                            <Binding Path="Column.DisplayIndex" RelativeSource="{RelativeSource Self}"/>
+                            <Binding Path="DataContext.SearchedForRowIndex" RelativeSource="{RelativeSource AncestorType=Window}" />
+                            <Binding Path="DataContext.SearchedForColumnIndex" RelativeSource="{RelativeSource AncestorType=Window}" />
                         </MultiBinding>
                     </Setter.Value>
                 </Setter>
